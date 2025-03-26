@@ -89,8 +89,8 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/riskygpt.git
-   cd riskygpt
+   git clone https://github.com/ewfx/aidel-c4ps-un-l0ck3-d.git
+   cd code/src
 2. **Install Dependencies**  
    ```bash
    pip install -r requirements.txt
@@ -110,14 +110,17 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 
 4. **Run the Streamlit UI**  
    ```bash
-   streamlit run bot.py
+   streamlit run ui.py
    ```
 
-5. **Expected Output**  
-   - ✅ RiskyGPT UI Loads  
-   - ✅ Transaction Analysis & Risk Scoring  
-   - ✅ Interactive Chatbot for Risk Queries  
-
+5. **Expected Output**
+   - ✅ **Intuitive UI** loads seamlessly  
+   - ✅ **Comprehensive Entity Analysis, Entity Extraction, Entity Classification & Risk Scoring** performed in real-time  
+   - ✅ **AI-Powered Chatbot with Voice Assistance** for instant risk assessment and insights  
+   - ✅ **Real-Time News Sentiment Analysis** to assess potential red flags related to extracted entities  
+   - ✅ **Geo Risk Evaluation** based on CPI, AML, GTI, and FATF compliance for entities' operating regions  
+   - ✅ **Sector Classification** to determine industries linked to extracted entities  
+   - ✅ **Sanctions Screening & Compliance Check** against OFAC, UN, FATF, and OpenSanctions databases  
 ---
 
 ## 🛠️ Tech Stack

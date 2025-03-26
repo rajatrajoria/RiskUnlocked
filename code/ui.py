@@ -53,7 +53,7 @@ risk_data = load_risk_data()
 risk_context = extract_risk_context(risk_data)
 
 # Streamlit UI Layout
-st.set_page_config(page_title="RiskyGPT", layout="wide")
+st.set_page_config(page_title="RiskUnlocked", layout="wide")
 
 # Custom Styling
 st.markdown(
@@ -71,7 +71,7 @@ st.markdown(
 )
 
 # Header
-st.markdown("<h1>🔍 RiskyGPT</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🔍 RiskUnlocked</h1>", unsafe_allow_html=True)
 st.markdown("#### Enter a transaction record (JSON or plain text)")
 
 # User input for transactions
@@ -105,7 +105,7 @@ if st.button("Analyze Transaction 🚀"):
             )
 
 # Chatbot UI (Right Floating Chatbox)
-st.sidebar.markdown("<h2>💬 RiskyGPT Chatbot</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2>💬 RiskUnlocked Chatbot</h2>", unsafe_allow_html=True)
 
 # Store chat history
 if "chat_history" not in st.session_state:
@@ -116,7 +116,7 @@ for chat in st.session_state.chat_history:
     if chat["role"] == "user":
         st.sidebar.markdown(f"👤 **User:** {chat['content']}")
     else:
-        st.sidebar.markdown(f"🤖 **RiskyGPT:** {chat['content']}")
+        st.sidebar.markdown(f"🤖 **RiskUnlocked:** {chat['content']}")
 
 # User input for chat
 chat_input = st.sidebar.text_input("Ask me anything about the risk analysis:")

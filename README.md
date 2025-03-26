@@ -43,7 +43,7 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
   Cross-checks entities with OFAC, UN, FATF, EU, and OpenSanctions API.
 
 - **🤖 AI Chatbot:**  
-  Provides an interactive risk assessment chatbot using Ollama (Mistral-7B) and Gemini LLM.
+  Provides an interactive risk assessment chatbot using Ollama (Mistral-7B) and Gemini LLM, enhanced with text-to-speech (TTS) support for voice-based responses.
 
 - **🔎 Entity Recognition:**  
   Extracts company details using NER-based classification.
@@ -116,7 +116,8 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 5. **Expected Output**
    - ✅ **Intuitive UI** loads seamlessly  
    - ✅ **Comprehensive Entity Analysis, Entity Extraction, Entity Classification & Risk Scoring** performed in real-time  
-   - ✅ **AI-Powered Chatbot with Voice Assistance** for instant risk assessment and insights  
+   - ✅ **AI-Powered Chatbot with Voice Assistance** for instant risk assessment and insights
+   - ✅ **Seamless Text-to-Speech (TTS) Support** allowing the chatbot to read responses aloud  
    - ✅ **Real-Time News Sentiment Analysis** to assess potential red flags related to extracted entities  
    - ✅ **Geo Risk Evaluation** based on CPI, AML, GTI, and FATF compliance for entities' operating regions  
    - ✅ **Sector Classification** to determine industries linked to extracted entities  
@@ -170,4 +171,5 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 ## 🚀 Future Enhancements
 
 - ✅ Integrate GPT-4 Turbo for better chatbot interaction  
-- ✅ Deploy on cloud infrastructure (AWS/GCP)  
+- ✅ Deploy on cloud infrastructure (AWS/GCP)
+- ✅ Expand chatbot’s voice assistant capabilities with multilingual TTS support

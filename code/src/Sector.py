@@ -3,6 +3,7 @@ import json
 from fuzzywuzzy import process
 
 SEC_COMPANY_DB_URL = "https://www.sec.gov/files/company_tickers.json"
+
 def get_cik_by_name(company_name):
     """
     Fetches the best-matching CIK for a given company name.
@@ -26,10 +27,10 @@ def get_cik_by_name(company_name):
         best_match, score = process.extractOne(company_name, companies.keys())
 
         if score > 80:  # Only return if match confidence is high
-            print(f"Best match for '{company_name}': {best_match} (CIK: {companies[best_match]})")
+            # print(f"✅ Best match for '{company_name}': {best_match} (CIK: {companies[best_match]})")
             return best_match, companies[best_match]
         else:
-            print(f"No good match found for '{company_name}'. Closest match: {best_match}")
+            print(f"unexpected error")
             return None
 
     except requests.exceptions.RequestException as e:
@@ -38,6 +39,15 @@ def get_cik_by_name(company_name):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
+
+# Example Usage
+# company_name = "google"
+# result = get_cik_by_name(company_name)
+
+# if result:
+#     print(f"\n✅ CIK for '{company_name}': {result[1]}")
+# else:
+#     print("Unexpected error")
 
 def get_sector(cik):
     cik = str(cik).zfill(10)  # Ensure CIK is 10 digits
@@ -53,7 +63,7 @@ def get_sector(cik):
 
         data = response.json()
 
-        # Debugging: Print response keys if `sicDescription` is missing
+        # Debugging: Print response keys if sicDescription is missing
         if "sicDescription" not in data:
             print("Unexpected response structure:", data.keys())
             return "Unknown"
@@ -64,9 +74,10 @@ def get_sector(cik):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
-    
-company_name = "Wells fargo"
-ciks = get_cik_by_name(company_name)
-sector=get_sector(ciks[1])
-print(sector)
-
+def getSectors(companies):
+    obj={}
+    for company in companies:
+        ciks = get_cik_by_name(company)
+        sector=get_sector(ciks[1])
+        obj[company]=sector
+    return obj

@@ -2,10 +2,11 @@ import re
 from entity_extraction import merge_entities
 from entity_classification import classify_entity
 from entity_enrichment import query_gleif, map_iso3166_country
-from risk_scoring import is_pep
+from pep_classification import is_pep
 from transformers import pipeline
 
 def process_transaction(transaction):
+    print("Inside process_transaction")
     if isinstance(transaction, dict):
         txn_id = transaction.get("Transaction ID", "Unknown")
         sender = transaction.get("Payer Name") or transaction.get("Sender Name")
@@ -24,7 +25,7 @@ def process_transaction(transaction):
         receiver = receiver_match.group(1) if receiver_match else None
     
     # --- Run NER on the unstructured text ---
-    ner = pipeline("ner", model="dslim/bert-base-NER", grouped_entities=True)
+    ner = pipeline("ner", model="dslim/bert-base-NER", aggregation_strategy="simple")
     ner_unstructured = ner(raw_text)
     unstructured_entities = merge_entities(ner_unstructured)
 
@@ -72,12 +73,24 @@ def process_transaction(transaction):
     # --- Classify all entities and calculate overall confidence ---
     classified_entities, countries = [], []
     total_score = 0.0
+    CUSTOM_COUNTRY_MAPPING = {
+        "US": "United States",
+        "GB": "United Kingdom",
+        "RU": "Russia",
+        "KP": "North Korea",
+        "KR": "South Korea",
+        "PS": "Palestine"
+    }
     for name, tag in combined_entities:
         if tag == 'ORG':
             classification = classify_entity(name)
             sender_gleif_data = query_gleif(name)
             countrycode = sender_gleif_data.get("attributes", {}).get("entity", {}).get("legalAddress", {}).get("country", "Unknown")
-            country = map_iso3166_country(countrycode).get("attributes", {}).get("name", "Unknown")
+            if countrycode in CUSTOM_COUNTRY_MAPPING:
+                country = CUSTOM_COUNTRY_MAPPING[countrycode]
+            else:
+                country = map_iso3166_country(countrycode).get("attributes", {}).get("name", "Unknown")
+            country = country.replace(" (the)", "").strip()
             countries.append(country)
         if tag == 'PER':
             entity_type = 'Individual'

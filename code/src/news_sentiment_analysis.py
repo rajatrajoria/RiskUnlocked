@@ -82,25 +82,25 @@ def analyze_risk(company_name, news_articles):
     return final_score
 
 
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-news_file_path = os.path.join(root_dir, "artifacts", "arch", "news_with_full_content.json")
-risk_score_save_path = os.path.join(root_dir, "artifacts", "arch", "transaction_risk_scores.json")
+def news_sentiment_analysis_score():
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    news_file_path = os.path.join(root_dir, "artifacts", "arch", "news_with_full_content.json")
+    risk_score_save_path = os.path.join(root_dir, "artifacts", "arch", "transaction_risk_scores.json")
 
+    os.makedirs(os.path.dirname(news_file_path), exist_ok=True)
+    os.makedirs(os.path.dirname(risk_score_save_path), exist_ok=True)
 
-os.makedirs(os.path.dirname(news_file_path), exist_ok=True)
-os.makedirs(os.path.dirname(risk_score_save_path), exist_ok=True)
+    with open(news_file_path, "r", encoding="utf-8") as file:
+        news_data = json.load(file)
 
+    risk_scores = {company: analyze_risk(company, articles) for company, articles in news_data.items()}
 
-with open(news_file_path, "r", encoding="utf-8") as file:
-    news_data = json.load(file)
+    for company, score in risk_scores.items():
+        print(f"⚠️ Risk Score for {company}: {score}/100")
 
-risk_scores = {company: analyze_risk(company, articles) for company, articles in news_data.items()}
+    with open(risk_score_save_path, "w", encoding="utf-8") as file:
+        json.dump(risk_scores, file, indent=4, ensure_ascii=False)
 
+    print(f"✅ Risk scores saved to {risk_score_save_path}")
 
-for company, score in risk_scores.items():
-    print(f"⚠️ Risk Score for {company}: {score}/100")
-
-with open(risk_score_save_path, "w", encoding="utf-8") as file:
-    json.dump(risk_scores, file, indent=4, ensure_ascii=False)
-
-print(f"✅ Risk scores saved to {risk_score_save_path}")
+    

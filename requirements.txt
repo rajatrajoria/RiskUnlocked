@@ -1,7 +1,9 @@
 transformers
-json
 torch
-os
 scipy
 bs4
 requests
+pytest
+pytest-mock
+pandas
+unittest

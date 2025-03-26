@@ -141,7 +141,7 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 - OpenSanctions API  
 
 ### Financial Data & Verification
-- GLEIF (Global Legal Entity Identifier Foundation for PEP detection)  
+- GLEIF (Global Legal Entity Identifier Foundation for LEI and PEP detection)  
 - SEC EDGAR (U.S. Financial Filings)  
 - Offshore Trust API (Shell company detection)  
 

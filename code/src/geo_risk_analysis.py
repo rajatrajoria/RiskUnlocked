@@ -70,39 +70,32 @@ def calculate_transaction_risk(country1, country2, cpi_scores, aml_scores, gti_s
     transaction_risk += fatf_penalty
     return round(transaction_risk, 2)
 
-# **Main Execution**
-def main():
-    # **Load Data**
+
+def geo_risk_analysis(countries):
+
     cpi_scores, latest_year = load_cpi_data()
     aml_scores = load_aml_data()
     gti_scores = load_gti_data()
     fatf_list = load_fatf_data()
 
-    # **List of Countries in Transaction Flow**
-    countries = ["Myanmar", "Pakistan", "Iran", "Syria"]  # Example Route
-
     total_risk = 0
     risk_details = []
 
-    # **Loop through country pairs and calculate risk**
     for i in range(len(countries) - 1):
         country1, country2 = countries[i], countries[i + 1]
         risk_score = calculate_transaction_risk(country1, country2, cpi_scores, aml_scores, gti_scores, fatf_list)
         total_risk += risk_score
-        risk_details.append(f"{country1} ↔ {country2}: {risk_score}/100")
+        risk_details.append(f"{country1} ↔ {country2}: {risk_score/100}")
 
-    # **Normalize Final Score to 100**
     max_possible_score = (len(countries) - 1) * 100  
     normalized_score = (total_risk / max_possible_score) * 100  
     normalized_score = round(min(normalized_score, 100), 2)  
 
-    # **Print Risk Details**
-    print(f"\nTransaction Risk Breakdown (Based on {latest_year} Data):")
-    for detail in risk_details:
-        print(detail)
+    return {
+        "Detailed Breakdown of Geo Risk Analysis between countries involved": risk_details,
+        "Normalized Risk Score for all the countries involved": normalized_score
+    }
 
-    # **Print Normalized Total Risk**
-    print(f"\n🔴 Normalized Total Transaction Risk Score for Route: {normalized_score}/100")
 
 if __name__ == "__main__":
-    main()
+    print(geo_risk_analysis(["Iran", "Pakistan"]))

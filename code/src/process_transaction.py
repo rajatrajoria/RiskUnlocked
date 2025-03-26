@@ -76,6 +76,10 @@ def process_transaction(transaction):
     CUSTOM_COUNTRY_MAPPING = {
         "US": "United States",
         "GB": "United Kingdom",
+        "RU": "Russia",
+        "KP": "North Korea",
+        "KR": "South Korea",
+        "PS": "Palestine"
     }
     for name, tag in combined_entities:
         if tag == 'ORG':

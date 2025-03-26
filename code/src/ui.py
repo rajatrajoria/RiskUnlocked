@@ -45,7 +45,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<h1>🔍 RiskyGPT</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🔍 RiskUnlocked</h1>", unsafe_allow_html=True)
 
 st.markdown("#### Enter a transaction record (JSON or plain text)")
 transaction_input = st.text_area("Paste transaction data here", height=150)

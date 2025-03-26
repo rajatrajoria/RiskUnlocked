@@ -2,7 +2,7 @@ import re
 from entity_extraction import merge_entities
 from entity_classification import classify_entity
 from entity_enrichment import query_gleif, map_iso3166_country
-from risk_scoring import is_pep
+from pep_classification import is_pep
 from transformers import pipeline
 
 def process_transaction(transaction):

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 # Load API keys
 load_dotenv()
-HF_API_KEY = "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" 
+HF_API_KEY = os.getenv("HUGGING_FACE_API_KEY") 
 OFAC_API_KEY = os.getenv("OFAC_API_KEY")  
 OPENSANCTIONS_API_KEY = os.getenv("OPENSANCTIONS_API_KEY")  
 

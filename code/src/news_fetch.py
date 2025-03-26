@@ -13,12 +13,11 @@ if not API_KEY:
 def fetch_news(company_name):
     url = f"https://newsapi.org/v2/everything?q={company_name} lawsuit OR fraud OR sanction&apiKey={API_KEY}"
     response = requests.get(url)
-    
     if response.status_code != 200:
         print(f"⚠️ Error fetching news for {company_name}: {response.text}")
         return []
-
     return response.json().get("articles", [])
+
 
 def scrape_full_article(url):
 
@@ -43,7 +42,6 @@ news_data = {}
 for company in companies:
     print(f"Fetching news for {company}...")
     news_articles = fetch_news(company)
-
 
     for article in news_articles:
         article["full_content"] = scrape_full_article(article["url"])

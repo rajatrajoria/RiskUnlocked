@@ -123,7 +123,7 @@ def verdict(extraction_result):
 
         Geopolitical Risks: [FATF, AML, Cross-border issues]
 
-        Overall Risk Score (Final Transaction Assessment)
+        Overall Risk Score for the transaction is
         Final Risk Level (0-1): [Weighted Score]
         Confidence Level (0-1): [How sure you are]
 

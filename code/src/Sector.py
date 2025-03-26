@@ -30,7 +30,6 @@ def get_cik_by_name(company_name):
             # print(f"✅ Best match for '{company_name}': {best_match} (CIK: {companies[best_match]})")
             return best_match, companies[best_match]
         else:
-            print(f"unexpected error")
             return None
 
     except requests.exceptions.RequestException as e:
@@ -74,10 +73,11 @@ def get_sector(cik):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
-def getSectors(companies):
+def getSectors(companies, entity_types):
     obj={}
-    for company in companies:
-        ciks = get_cik_by_name(company)
-        sector=get_sector(ciks[1])
-        obj[company]=sector
+    for company, entity_type in zip(companies, entity_types):
+        if entity_type.lower() not in ["individual", "pep"]:  # Exclude individuals and PEPs
+            ciks = get_cik_by_name(company)
+            sector = get_sector(ciks[1])
+            obj[company] = sector
     return obj

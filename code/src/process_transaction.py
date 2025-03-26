@@ -1,4 +1,5 @@
 import re
+import json
 from entity_extraction import merge_entities
 from entity_classification import classify_entity
 from entity_enrichment import query_gleif, map_iso3166_country
@@ -6,7 +7,6 @@ from pep_classification import is_pep
 from transformers import pipeline
 
 def process_transaction(transaction):
-    print("Inside process_transaction")
     if isinstance(transaction, dict):
         txn_id = transaction.get("Transaction ID", "Unknown")
         sender = transaction.get("Payer Name") or transaction.get("Sender Name")
@@ -14,7 +14,7 @@ def process_transaction(transaction):
         raw_text = transaction.get("Transaction Details")
     else:
         raw_text = transaction
-        txn_pattern = r"Transaction ID:\s*(\S+)"
+        txn_pattern = r'"Transaction ID":\s*"([^"]+)"'
         payer_pattern = r"Payer\s*Name:\s*\"([^\"]+)\""
         receiver_pattern = r"Receiver\s*Name:\s*\"([^\"]+)\""
         txn_match = re.search(txn_pattern, transaction)
@@ -25,12 +25,11 @@ def process_transaction(transaction):
         receiver = receiver_match.group(1) if receiver_match else None
     
     # --- Run NER on the unstructured text ---
-    ner = pipeline("ner", model="dslim/bert-base-NER", aggregation_strategy="simple")
+    ner = pipeline("ner", model="dslim/bert-base-NER", aggregation_strategy="max")
     ner_unstructured = ner(raw_text)
     unstructured_entities = merge_entities(ner_unstructured)
 
     # --- Run NER on sender and receiver separately ---
-    # Here we assume the NER pipeline returns a list; we take the first entity if available.
     sender_entity = None
     if sender:
         ner_sender = ner(sender)
@@ -114,12 +113,29 @@ def process_transaction(transaction):
         total_score += classification["score"]
 
     overall_confidence = total_score / len(classified_entities) if classified_entities else 0.0
+    countries = [c for c in countries if c != "Unknown"]
+
+    while len(countries) < 2:
+        countries.append("United States")
+
     final_output = {
         "Transaction ID": txn_id,
         "Extracted Entity": [item["Extracted Entity"] for item in classified_entities],
         "Entity Type": [item["Entity Type"] for item in classified_entities],
-        "Supporting Evidence": [item["Supporting Evidence"] for item in classified_entities],
+        "Supporting Evidence": [item["Supporting Evidence"] for item in classified_entities if item["Supporting Evidence"] is not None],
         "Confidence Score": round(overall_confidence, 2),
         "Countries": countries
     }
     return final_output
+
+if __name__ == "__main__":
+    test_input = {
+        "Transaction ID": "TXN001",
+        "Payer Name": "Acme Corp",
+        "Receiver Name": "SovCo Capital Partners",
+        "Transaction Details": "Payment for services rendered",
+        "Amount": "$500,000",
+        "Receiver Country": "USA"
+    }
+    result = process_transaction(test_input)
+    print(json.dumps(result, indent=4))

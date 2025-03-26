@@ -1,0 +1,35 @@
+{
+  "Transaction ID": "TXN001",
+  "Extracted Entity": [
+    "Google LLC",
+    "Microsoft"
+  ],
+  "Entity Type": [
+    "Corporation",
+    "Corporation"
+  ],
+  "Supporting Evidence": [
+    null,
+    null
+  ],
+  "Confidence Score": 0.65,
+  "Countries": [
+    "United States",
+    "Belgium"
+  ],
+  "Real Time News Analysis of Entities Involved in the transaction": {
+    "Microsoft": 29.19,
+    "Google LLC": 27.57
+  },
+  "Geo Risk Analysis Results of Entities Involved": {
+    "Detailed Breakdown of Geo Risk Analysis between countries involved": [
+      "United States \u2194 Belgium: 0.16899999999999998"
+    ],
+    "Normalized Risk Score for all the countries involved": 16.9
+  },
+  "Sectors associated with the entities extracted": {
+    "Google LLC": "Oil Royalty Traders",
+    "Microsoft": "Services-Prepackaged Software"
+  },
+  "Sanction Analysis of the entitites involved": "\nYou are a highly specialized financial risk analysis expert with expertise in evaluating potential financial, legal, and security risks based on sanctions data. You will analyze the following JSON response, which contains details about various entities from multiple sources (OFAC and OpenSanctions).\n\n## **Your Task**\n- Your primary goal is to determine **whether each entity in the data is risky** or **safe**.\n- **DO NOT GUESS**: Your analysis must be **strictly based on the data provided**.\n- If an entity is listed in **OFAC or OpenSanctions**, it **must be flagged** and accompanied by **a strong, well-reasoned justification**.\n- If an entity is **not found in sanctions lists**, assess the available metadata (e.g., past violations, financial misconduct, or suspicious affiliations) before deciding if it poses any risk.\n- **Be an Explainable AI**: Every decision must be **fully justified with clear supporting evidence**.\n\n---\n\n## **How to Structure Your Analysis**\n### **1. Sanction Analysis (For Each Entity)**\nFor each entity in the JSON data, follow this format:\n\n#### **Entity Name: [Entity Name]**\n- **Risk Score**: _(0-1)_ _(0 = No Risk, 1 = Maximum Risk)_\n- **Justification and Evidence**:\n  - **Sanctioning Bodies**: _(List all relevant bodies: OFAC, UN, EU, etc.)_\n  - **Reason for Sanctions**: _(Terrorism, Money Laundering, Fraud, etc.)_\n  - **Aliases & Associations**: _(Does this entity have known alternative names or links to high-risk organizations?)_\n  - **Past Violations**: _(Any documented history of financial crimes, corruption, or illicit activity?)_\n  - **Additional Insights**: _(Is there anything suspicious about the transaction metadata?)_\n\n---\n\n### **2. Overall Risk Score for the Transaction**\nOnce all entities are analyzed, provide a final **sanction-based risk assessment** for the transaction:\n\n- **Final Risk Level (0-1)**: _(Aggregate risk score of all entities involved)_\n- **Confidence Level (0-1)**: _(How certain are you of your analysis?)_\n- **Comprehensive Justification**:\n  - Explain why this transaction should be flagged or cleared.\n  - Identify any **patterns or red flags** in the provided data.\n  - Highlight any **missing information** that could impact your decision.\n  - Consider alternative explanations before reaching a conclusion.\n\n---\n\n## **IMPORTANT RULES TO FOLLOW**\n**Do not generate false positives or false negatives.**  \n**Base ALL conclusions strictly on data from OFAC, OpenSanctions, and metadata.**  \n**If uncertain, indicate that more information is needed instead of assuming.**  \n\n### **JSON Data for Analysis:**\n```json\n{\n  \"OFAC Screening\": [],\n  \"OpenSanctions\": [\n    {\n      \"Entity\": \"Google LLC\",\n      \"Matches\": 0\n    },\n    {\n      \"Entity\": \"Microsoft\",\n      \"Matches\": 0\n    }\n  ]\n}\n```\n---\n\n## **Example Analysis**\n\n### **1. Sanction Analysis (For Each Entity)**\n\n#### **Google LLC: [Google LLC]**\n- **Risk Score**: 0.0\n- **Justification and Evidence**:\n  - **Sanctioning Bodies**: OFAC\n  - **Reason for Sanctions**: None\n  - **Aliases & Associations**: None\n  - **Past Violations**: None\n  - **Additional Insights**: None\n\n#### **Microsoft: [Microsoft]**\n- **Risk Score**: 0.0\n- **Justification and Evidence**:\n  - **Sanctioning Bodies**: OFAC\n  - **Reason for Sanctions**: None\n  - **Aliases & Associations**: None\n  - **Past Violations**: None\n  - **Additional Insights**: None\n\n### **2. Overall Risk Score for the Transaction**\n\n- **Final Risk Level (0-1)**: 0.0\n- **Confidence Level (0-1)**: 1.0 \n- **Comprehensive Justification**:\n  - Both entities are found in OFAC's screening results but not listed as sanctioned.\n  - There are no documented past violations, financial crimes, or suspicious affiliations associated with either entity.\n  - The transaction metadata does not reveal any patterns or red flags.\n  - Based on the provided data, there is no reason to flag this transaction as high risk."
+}

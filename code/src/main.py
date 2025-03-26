@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 from process_transaction import process_transaction
 from news_fetch import get_news_with_full_content
@@ -8,20 +9,33 @@ from geo_risk_analysis import geo_risk_analysis
 from sector import getSectors
 from sanctions import getSanctionReports
 from verdict import verdict
-def process():
-    sample_transaction = {
-        "Transaction ID": "TXN001",
-        "Payer Name": "Tesla Inc",
-        "Receiver Name": "Microsoft Corporation",
-        "Transaction Details": "Payment for services rendered",
-        "Amount": "$500,000",
-        "Receiver Country": "USA"
-    }
 
-    #Extraction, Enrichment, Classification
-    extraction_result = process_transaction(sample_transaction)
+def convert_text_to_transactions(input_text):
+    try:
+        data = json.loads(input_text)
+        if isinstance(data, dict):
+            return [data]
+        elif isinstance(data, list):
+            return data
+        else:
+            raise ValueError("Unexpected JSON structure.")
+    except json.JSONDecodeError:
+        try:
+            data = json.loads("[" + input_text + "]")
+            return data
+        except json.JSONDecodeError as e:
+            raise ValueError("Input text is not valid JSON or JSON-like transactions.") from e
 
-    #News Analysis and Scoring
+def app(transactions):
+  final_outputs = []
+  combined_results = []
+  transactions = convert_text_to_transactions(transactions)
+  for transaction in transactions:
+    # Extraction, Enrichment, Classification
+    extraction_result = process_transaction(transaction)
+    print(extraction_result)
+
+    # News Analysis and Scoring
     news_data = get_news_with_full_content(extraction_result["Extracted Entity"])
     news_sentiment_analysis_score()
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
@@ -30,25 +44,20 @@ def process():
         scores = json.load(f)
     extraction_result["Real Time News Analysis of Entities Involved in the transaction"] = scores
 
-    #Geo Risk Analysis and Scoring
+    # Geo Risk Analysis and Scoring
     geo_risk = geo_risk_analysis(extraction_result["Countries"])
-    extraction_result["Geo Risk Analysis Results of Entities Involved"] = geo_risk
-
-    
-    extraction_result["Sectors associated with the entities extracted"] = getSectors(extraction_result["Extracted Entity"])
-
-    # Prepare sanction cases list from extracted entities
+    extraction_result["Geo Risk Analysis Results of Entities Involved"] = geo_risk   
+    extraction_result["Sectors associated with Extracted Entities"] = getSectors(extraction_result["Extracted Entity"], extraction_result["Entity Type"])
     sanction_cases = []
     for name, ent_type in zip(extraction_result["Extracted Entity"], extraction_result["Entity Type"]):
-        # Convert type to the expected value for sanctions screening
         if ent_type.lower() in ["individual", "pep"]:
             type_value = "person"
         else:
             type_value = "organization"
         sanction_cases.append({"name": name, "type": type_value})
-
-    # Now pass the list to getSanctionReports()
-    extraction_result["Sanction Analysis of the entitites involved"] = getSanctionReports(sanction_cases)
+    
+    # Sanction Analysis
+    extraction_result["Sanction Analysis"] = getSanctionReports(sanction_cases)
     implementation_details = {
 
 "implementation_details": {
@@ -105,46 +114,30 @@ def process():
     verdict_response = verdict(extraction_result)
     print(json.dumps(verdict_response, indent=4))
 
-
-
     combined_result = {
         "Findings" : extraction_result,
         "implementation_details" : implementation_details
     }
-    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    save_path = os.path.join(root_dir, "datasets", "result.json")
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    with open(save_path, "w", encoding="utf-8") as file:
-        json.dump(combined_result, file, indent=4, ensure_ascii=False)
-
-
-
+    combined_results.append(combined_result)
     
+    
+    final_output = {
+        "Transaction ID": extraction_result["Transaction ID"],
+        "Extracted Entity": extraction_result["Extracted Entity"],
+        "Entity Type": extraction_result["Entity Type"],
+        "Supporting Evidence": extraction_result["Supporting Evidence"],
+        "Transaction Risk Analysis": verdict_response
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print(json.dumps(final_output, indent=4))
+    final_outputs.append(final_output)
+  root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+  save_path = os.path.join(root_dir, "datasets", "result.json")
+  os.makedirs(os.path.dirname(save_path), exist_ok=True)
+  with open(save_path, "w", encoding="utf-8") as file:
+      json.dump(combined_results, file, indent=4, ensure_ascii=False)
+  return final_outputs
 
 if __name__ == "__main__":
-    process()
-
+    sample_transaction = {}
+    app(sample_transaction)

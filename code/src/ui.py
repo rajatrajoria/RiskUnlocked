@@ -2,11 +2,14 @@ import streamlit as st
 import json
 import ollama
 import os
+import torch
 
+from main import app 
 
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+torch.classes.__path__ = []
+
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..",".."))
 data_file = os.path.join(root_dir, "datasets", "result.json")  
-
 
 def load_risk_data():
     try:
@@ -19,21 +22,35 @@ def load_risk_data():
 
 
 def extract_risk_context(risk_data):
-    if "error" in risk_data:
+    if isinstance(risk_data, dict) and "error" in risk_data:
         return risk_data["error"]
     
     context = ""
-    if "transaction_risk_analysis" in risk_data:
-        analysis = risk_data["transaction_risk_analysis"]
-        for entity in analysis.get("entities", []):
-            context += (
-                f"\nEntity: {entity['name']}\n"
-                f"Risk Score: {entity['risk_score']}\n"
-                f"Sanctions: {entity['justification_and_evidence'].get('reason_for_sanctions', 'N/A')}\n"
-                f"Additional Insights: {json.dumps(entity['justification_and_evidence'].get('additional_insights', {}), indent=2)}\n"
-            )
-    return context if context else "Please enter input transaction data."
-
+    if isinstance(risk_data, list) and risk_data:
+        for item in risk_data:
+            findings = item.get("Findings", {})
+            transaction_id = findings.get("Transaction ID", "Unknown Transaction")
+            context += f"\nTransaction ID: {transaction_id}\n"
+            
+            entities = findings.get("Extracted Entity", [])
+            entity_types = findings.get("Entity Type", [])
+            if entities:
+                context += "Entities:\n"
+                for name, etype in zip(entities, entity_types):
+                    context += f"  - {name} ({etype})\n"
+            
+            news_analysis = findings.get("Real Time News Analysis of Entities Involved in the transaction", {})
+            if news_analysis:
+                context += "Real Time News Analysis:\n"
+                for key, value in news_analysis.items():
+                    context += f"  - {key}: {value}\n"
+            
+            sanction_analysis = findings.get("Sanction Analysis", "N/A")
+            context += f"Sanction Analysis: {sanction_analysis}\n"
+            context += "\n"
+        return context.strip()
+    else:
+        return "Please enter input transaction data."
 
 def get_chatbot_response(user_input, risk_context):
     if risk_context == "Please enter input transaction data.":
@@ -52,7 +69,6 @@ def get_chatbot_response(user_input, risk_context):
 risk_data = load_risk_data()
 risk_context = extract_risk_context(risk_data)
 
-# Streamlit UI Layout
 st.set_page_config(page_title="RiskUnlocked", layout="wide")
 
 
@@ -64,7 +80,11 @@ st.markdown(
         .stButton button { background-color: #ff4c4c !important; color: white !important; font-size: 16px !important; font-weight: bold !important; }
         .stButton button:hover { background-color: #d43f3f !important; }
         .stMarkdown h1, .stMarkdown h2 { color: #ff4c4c; }
-        .chat-container { position: fixed; bottom: 20px; right: 20px; width: 300px; border: 2px solid #ff4c4c; padding: 10px; border-radius: 10px; background-color: #1e1e1e; color: white; }
+        pre {
+            overflow-x: hidden;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
     </style>
     """,
     unsafe_allow_html=True
@@ -88,20 +108,15 @@ if st.button("Analyze Transaction 🚀"):
             except json.JSONDecodeError:
                 transaction_text = transaction_input 
 
-       
-            risk_score = 0.7  
-            justification = "This transaction is flagged due to potential links with a high-risk entity in the sanctions database."
+            justification = app(transaction_text)
 
             st.markdown("<h2>Risk Analysis Result</h2>", unsafe_allow_html=True)
-            st.markdown(
-                f"""
-                <div class="chat-container">
-                    <p><b>⚠ Risk Score:</b> {risk_score}</p>
-                    <p><b>Justification:</b> {justification}</p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            
+            justification_str = json.dumps(justification, indent=4, ensure_ascii=False)
+            # Replace the literal "\n" (which appears as "\\n" in the string) with actual newlines
+            justification_str = justification_str.replace("\\n", "\n")
+            st.markdown("**Justification:**")
+            st.markdown(f"```\n{justification_str}\n```")
 
 # Chatbot UI (Right Floating Chatbox)
 st.sidebar.markdown("<h2>💬 RiskUnlocked Chatbot</h2>", unsafe_allow_html=True)
@@ -127,10 +142,6 @@ if st.sidebar.button("Send"):
     else:
         with st.spinner("Thinking..."):
             bot_response = get_chatbot_response(chat_input, risk_context)
-            
-          
             st.session_state.chat_history.append({"role": "user", "content": chat_input})
             st.session_state.chat_history.append({"role": "assistant", "content": bot_response})
-
-           
             st.rerun()  

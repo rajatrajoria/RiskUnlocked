@@ -2,15 +2,18 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 def get_news_with_full_content(companies=None):
-    API_KEY = "7454a3e8c68040abae666e5b9aa6a4b0"
-    if not API_KEY:
+    if not NEWS_API_KEY:
         raise ValueError("NEWS_API_KEY environment variable is not set!")
 
     def fetch_news(company_name):
-        url = f"https://newsapi.org/v2/everything?q={company_name} lawsuit OR fraud OR sanction&apiKey={API_KEY}"
+        url = f"https://newsapi.org/v2/everything?q={company_name} lawsuit OR fraud OR sanction&apiKey={NEWS_API_KEY}"
         response = requests.get(url)
         if response.status_code != 200:
             print(f"⚠️ Error fetching news for {company_name}: {response.text}")

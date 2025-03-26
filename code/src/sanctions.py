@@ -120,7 +120,7 @@ def risk_analysis_huggingface(ofac_response, open_sanctions_response):
             else:
                 return generated_text.strip()
         else:
-            return f"Error: {response.status_code} - {response.text}"
+            return f"Error in risk_analysis_huggingface: {response.status_code} - {response.text}"
     
     except Exception as e:
         return f"Error in risk_analysis_huggingface: {e}"

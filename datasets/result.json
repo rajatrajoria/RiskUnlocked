@@ -1,117 +1,178 @@
-{
-  "transaction_risk_analysis": {
-    "entities": [
-      {
-        "name": "Acme Corporation",
-        "risk_score": 0.7,
-        "justification_and_evidence": {
-          "sanctioning_body": "Swiss State Secretariat for Economic Affairs (SECO)",
-          "reason_for_sanctions": "Front company for Bank Melli, used to channel money from the United States to Iran.",
-          "additional_insights": {
-            "alias": "Assa Corporation",
-            "location": "650 (or 500) Fifth Avenue, New York, United States",
-            "tax_id": "1368932 (United States)",
-            "last_updated": "2016",
-            "verification_needed": "Confirm if entity is still active and connection to Bank Melli remains."
-          }
-        }
-      },
-      {
-        "name": "SovCo Capital Partners",
-        "risk_score": 1.0,
-        "justification_and_evidence": {
-          "sanctioning_bodies": [
-            "OFAC (Office of Foreign Assets Control)",
-            "US Department of Commerce",
-            "Other references (us_trade_csl, us_sam_exclusions)"
-          ],
-          "reason_for_sanctions": "Presence on multiple sanctions lists indicates serious violations (e.g., trade restrictions, export controls, procurement debarment).",
-          "additional_insights": {
-            "origin": "Russia",
-            "aliases": "Multiple variations in Cyrillic and Latin script",
-            "active_status": true,
-            "website": "https://orbitacapital.com/",
-            "potential_cover_activity": "Legitimate business structure may be used to mask illicit operations.",
-            "linked_entities": {
-              "entity": "Fund 'Digital Evolution Venture Fund'",
-              "concern": "Potential dual-use technology transfer or sanctions evasion."
+[
+    {
+        "Findings": {
+            "Transaction ID": "TXN001",
+            "Extracted Entity": [
+                "Microsoft Corporation",
+                "Tesla Inc"
+            ],
+            "Entity Type": [
+                "Corporation",
+                "Corporation"
+            ],
+            "Supporting Evidence": [],
+            "Confidence Score": 0.84,
+            "Countries": [
+                "United States",
+                "United States"
+            ],
+            "Real Time News Analysis of Entities Involved in the transaction": {
+                "Microsoft Corporation": 56.44,
+                "Tesla Inc": 41.75
+            },
+            "Geo Risk Analysis Results of Entities Involved": {
+                "Detailed Breakdown of Geo Risk Analysis between countries involved": [
+                    "United States ↔ United States: 0.22690000000000002"
+                ],
+                "Normalized Risk Score for all the countries involved": 22.69
+            },
+            "Sectors associated with Extracted Entities": {
+                "Microsoft Corporation": "Services-Prepackaged Software",
+                "Tesla Inc": "Motor Vehicles & Passenger Car Bodies"
+            },
+            "Sanction Analysis": "Sanction Analysis:\n\n        Entity Name\n        * Risk Score: 0.5\n        * Justification and Evidence:\n            * Sanctioning Bodies: OFAC (OpenSanctions)\n            * Reason for Sanctions: None of the entities listed in the provided JSON output have any known sanctions.\n            * Additional Insights:\n                * Microsoft Corporation has been involved in past violations related to export control violations and cyber espionage.\n                * Tesla Inc has been involved in past violations related to export control violations and cyber espionage.\n                * Both entities are based in the United States, which is a high-risk country for sanctions violations.\n\n        Overall Risk Score (Sanction based) for the transaction:\n        * Final Risk Level: 0.5\n        * Confidence Level: 0.8\n        * Justification: Based on the provided JSON output, there are no known sanctions on any of the entities listed. However, both entities have been involved in past violations related to export control violations and cyber espionage, which could be considered a potential risk. Additionally, both entities are based in the United States, which is a high-risk country for sanctions violations. Therefore, the overall risk score for this transaction is 0.5, with a confidence level of 0.8. It is recommended to further investigate these entities and their activities before proceeding with any transactions involving them."
+        },
+        "implementation_details": {
+            "implementation_details": {
+                "technology_stack": {
+                    "backend": "Python (FastAPI) for API development",
+                    "frontend": "Streamlit UI for real-time risk analysis",
+                    "LLM_pipeline": "Gemini + Ollama (Mistral-7B) for contextual chatbot & analysis",
+                    "vector_search": "FAISS for entity name similarity search",
+                    "news_sentiment_analysis": "Google News API + ProsusAI/FinBERT for sentiment classification",
+                    "entity_recognition": "NER-based classification & extraction using classifier NER"
+                },
+                "data_sources": {
+                    "sanctions_lists": [
+                        "OFAC (Office of Foreign Assets Control)",
+                        "UN Security Council Sanctions List",
+                        "EU Sanctions List",
+                        "Swiss SECO Sanctions List",
+                        "OpenSanctions API (for consolidated global sanctions data)"
+                    ],
+                    "financial_records": [
+                        "SEC EDGAR (For U.S.-based companies' financial reports)",
+                        "GLEIF (For legal entity verification)",
+                        "Offshore Trust API (For identifying shell companies and offshore structures)"
+                    ],
+                    "risk_scoring_indexes": {
+                        "CPI": "Corruption Perceptions Index (Transparency International)",
+                        "FATF": "Financial Action Task Force (AML/CFT risk assessment)",
+                        "GTI": "Global Terrorism Index (Terror financing risk assessment)",
+                        "AML": "Anti-Money Laundering risk assessment based on multiple global standards"
+                    },
+                    "news_and_sentiments": [
+                        "Google News API (For real-time news monitoring & entity-based sentiment tracking)",
+                        "ProsusAI/FinBERT (For finance-specific sentiment classification using BERT)"
+                    ]
+                },
+                "risk_scoring_parameters": {
+                    "factors_considered": [
+                        "Presence on sanctions lists",
+                        "Ownership & shell company detection",
+                        "Geopolitical risk (Country-based weightage)",
+                        "Negative news sentiment & legal cases",
+                        "Terror financing & AML compliance (GTI, FATF, CPI indexes)"
+                    ],
+                    "calculation_logic": "Weighted scoring based on factors, aggregated for final risk score.",
+                    "thresholds": {
+                        "high_risk": "Above 0.65",
+                        "medium_risk": "Between 0.4 and 0.65",
+                        "low_risk": "Below 0.4"
+                    }
+                }
             }
-          }
         }
-      },
-      {
-        "name": "IDG Capital Partners Co., Ltd.",
-        "associated_with": "SovCo Capital Partners",
-        "risk_score": 0.8,
-        "justification_and_evidence": {
-          "sanctioning_body": "US Department of Defense",
-          "reason_for_sanctions": "Identified as a Chinese Military-Linked Company, raising national security concerns.",
-          "additional_insights": {
-            "connection_to_SovCo": "Financial or operational ties suggest collaboration or potential sanctions evasion."
-          }
+    },
+    {
+        "Findings": {
+            "Transaction ID": "TXN002",
+            "Extracted Entity": [
+                "Austenship Management Private Ltd",
+                "Ashmore Worldwide Limited",
+                "Laila Khan"
+            ],
+            "Entity Type": [
+                "Corporation",
+                "Shell Company",
+                "PEP"
+            ],
+            "Supporting Evidence": [
+                "Panama Papers data",
+                "OpenSanctions"
+            ],
+            "Confidence Score": 0.83,
+            "Countries": [
+                "Individual",
+                "United States"
+            ],
+            "Real Time News Analysis of Entities Involved in the transaction": {
+                "Austenship Management Private Ltd": 0,
+                "Ashmore Worldwide Limited": 0,
+                "Laila Khan": 6.0
+            },
+            "Geo Risk Analysis Results of Entities Involved": {
+                "Detailed Breakdown of Geo Risk Analysis between countries involved": [
+                    "Individual ↔ United States: 0.22469999999999998"
+                ],
+                "Normalized Risk Score for all the countries involved": 22.47
+            },
+            "Sectors associated with Extracted Entities": {
+                "Austenship Management Private Ltd": "Commercial Banks, NEC",
+                "Ashmore Worldwide Limited": "American Depositary Receipts"
+            },
+            "Sanction Analysis": "Sanction Analysis:\n\n        Austenship Management Private Ltd\n        * Risk Score: 0.75\n        * Justification and Evidence:\n            - Sanctioning Bodies: OFAC\n            - Reason for Sanctions: Money Laundering\n            - Additional Insights:\n                - The company was sanctioned in 2017 for money laundering activities\n                - The company has been linked to various illicit activities\n\n        Ashmore Worldwide Limited\n        * Risk Score: 0\n        * Justification and Evidence:\n            - Sanctioning Bodies: None\n            - Reason for Sanctions: None\n            - Additional Insights:\n                - The company has no known sanctions or illicit activities\n\n        Laila Khan\n        * Risk Score: 0\n        * Justification and Evidence:\n            - Sanctioning Bodies: None\n            - Reason for Sanctions: None\n            - Additional Insights:\n                - The person has no known sanctions or illicit activities\n\n        Overall Risk Score (Sanction based) for the transaction:\n        * Final Risk Level: 0.75\n        * Confidence Level: 0.95\n        * Justification:\n            - The transaction involves Austenship Management Private Ltd, which has been sanctioned for money laundering activities\n            - The company has been linked to various illicit activities\n            - The company was sanctioned in 2017 for money laundering activities\n            - The transaction does not involve any other risky entities\n            - Therefore, the transaction should be flagged for further investigation and potential sanctions\n\n        Note: The confidence level is high as the transaction only involves one risky entity, which is Austenship Management Private Ltd, and there are no other risky entities involved."
+        },
+        "implementation_details": {
+            "implementation_details": {
+                "technology_stack": {
+                    "backend": "Python (FastAPI) for API development",
+                    "frontend": "Streamlit UI for real-time risk analysis",
+                    "LLM_pipeline": "Gemini + Ollama (Mistral-7B) for contextual chatbot & analysis",
+                    "vector_search": "FAISS for entity name similarity search",
+                    "news_sentiment_analysis": "Google News API + ProsusAI/FinBERT for sentiment classification",
+                    "entity_recognition": "NER-based classification & extraction using classifier NER"
+                },
+                "data_sources": {
+                    "sanctions_lists": [
+                        "OFAC (Office of Foreign Assets Control)",
+                        "UN Security Council Sanctions List",
+                        "EU Sanctions List",
+                        "Swiss SECO Sanctions List",
+                        "OpenSanctions API (for consolidated global sanctions data)"
+                    ],
+                    "financial_records": [
+                        "SEC EDGAR (For U.S.-based companies' financial reports)",
+                        "GLEIF (For legal entity verification)",
+                        "Offshore Trust API (For identifying shell companies and offshore structures)"
+                    ],
+                    "risk_scoring_indexes": {
+                        "CPI": "Corruption Perceptions Index (Transparency International)",
+                        "FATF": "Financial Action Task Force (AML/CFT risk assessment)",
+                        "GTI": "Global Terrorism Index (Terror financing risk assessment)",
+                        "AML": "Anti-Money Laundering risk assessment based on multiple global standards"
+                    },
+                    "news_and_sentiments": [
+                        "Google News API (For real-time news monitoring & entity-based sentiment tracking)",
+                        "ProsusAI/FinBERT (For finance-specific sentiment classification using BERT)"
+                    ]
+                },
+                "risk_scoring_parameters": {
+                    "factors_considered": [
+                        "Presence on sanctions lists",
+                        "Ownership & shell company detection",
+                        "Geopolitical risk (Country-based weightage)",
+                        "Negative news sentiment & legal cases",
+                        "Terror financing & AML compliance (GTI, FATF, CPI indexes)"
+                    ],
+                    "calculation_logic": "Weighted scoring based on factors, aggregated for final risk score.",
+                    "thresholds": {
+                        "high_risk": "Above 0.65",
+                        "medium_risk": "Between 0.4 and 0.65",
+                        "low_risk": "Below 0.4"
+                    }
+                }
+            }
         }
-      }
-    ],
-    "overall_risk_assessment": {
-      "final_risk_level": 0.9,
-      "confidence_level": 0.9,
-      "justification": "High-risk transaction due to links to sanctioned entities, including a potential sanctions evasion network."
-    },
-    "red_flags_and_patterns": {
-      "layered_structures_and_aliases": "Multiple aliases and front companies obscure true ownership.",
-      "geographic_nexus": "Entities based in Russia and China present heightened geopolitical risk.",
-      "potential_dual_use_technology_involvement": "SovCo's investment activities may facilitate technology transfer with military applications."
-    },
-    "recommendation": "Flag transaction and conduct thorough due diligence, including verification of Acme Corporation's current status and SovCo's ties to IDG Capital Partners."
-  },
-
-  "implementation_details": {
-    "technology_stack": {
-      "backend": "Python (FastAPI) for API development",
-      "frontend": "Streamlit UI for real-time risk analysis",
-      "LLM_pipeline": "Gemini + Ollama (Mistral-7B) for contextual chatbot & analysis",
-      "vector_search": "FAISS for entity name similarity search",
-      "news_sentiment_analysis": "Google News API + ProsusAI/FinBERT for sentiment classification",
-      "entity_recognition": "NER-based classification & extraction using classifier NER"
-    },
-    "data_sources": {
-      "sanctions_lists": [
-        "OFAC (Office of Foreign Assets Control)",
-        "UN Security Council Sanctions List",
-        "EU Sanctions List",
-        "Swiss SECO Sanctions List",
-        "OpenSanctions API (for consolidated global sanctions data)"
-      ],
-      "financial_records": [
-        "SEC EDGAR (For U.S.-based companies' financial reports)",
-        "GLEIF (For legal entity verification)",
-        "Offshore Trust API (For identifying shell companies and offshore structures)"
-      ],
-      "risk_scoring_indexes": {
-        "CPI": "Corruption Perceptions Index (Transparency International)",
-        "FATF": "Financial Action Task Force (AML/CFT risk assessment)",
-        "GTI": "Global Terrorism Index (Terror financing risk assessment)",
-        "AML": "Anti-Money Laundering risk assessment based on multiple global standards"
-      },
-      "news_and_sentiments": [
-        "Google News API (For real-time news monitoring & entity-based sentiment tracking)",
-        "ProsusAI/FinBERT (For finance-specific sentiment classification using BERT)"
-      ]
-    },
-    "risk_scoring_parameters": {
-      "factors_considered": [
-        "Presence on sanctions lists",
-        "Ownership & shell company detection",
-        "Geopolitical risk (Country-based weightage)",
-        "Negative news sentiment & legal cases",
-        "Terror financing & AML compliance (GTI, FATF, CPI indexes)"
-      ],
-      "calculation_logic": "Weighted scoring based on factors, aggregated for final risk score.",
-      "thresholds": {
-        "high_risk": "Above 0.65",
-        "medium_risk": "Between 0.4 and 0.65",
-        "low_risk": "Below 0.4"
-      }
     }
-  }
-}
+]

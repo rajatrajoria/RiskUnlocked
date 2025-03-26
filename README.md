@@ -22,8 +22,7 @@ RiskyGPT is an AI-powered risk assessment tool that evaluates financial transact
 
 ## 🎥 Demo
 
-- **Live Demo:** (if applicable)
-- **Screenshots:**  
+- **Video Demo & Presentation:** [📂 Google Drive](YOUR_DRIVE_LINK_HERE)  
 ---
 
 ## 💡 Inspiration

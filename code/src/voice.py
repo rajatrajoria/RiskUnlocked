@@ -16,5 +16,5 @@ def text_to_speech(text):
     os.remove(filename)
 
 # Example: AI-generated response
-ai_response = "Hello! This is your AI assistant speaking. How can I help you today?"
+# ai_response = "Hello! This is your AI assistant speaking. How can I help you today?"
 text_to_speech(ai_response)  # Speak the output

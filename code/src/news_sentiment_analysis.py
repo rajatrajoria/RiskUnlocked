@@ -96,11 +96,11 @@ def news_sentiment_analysis_score():
     risk_scores = {company: analyze_risk(company, articles) for company, articles in news_data.items()}
 
     for company, score in risk_scores.items():
-        print(f"⚠️ Risk Score for {company}: {score}/100")
+        print(f"Risk Score for {company}: {score}/100")
 
     with open(risk_score_save_path, "w", encoding="utf-8") as file:
         json.dump(risk_scores, file, indent=4, ensure_ascii=False)
 
-    print(f"✅ Risk scores saved to {risk_score_save_path}")
+    print(f"Risk scores saved to {risk_score_save_path}")
 
     

@@ -3,8 +3,6 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
 def calculate_risk_score(initial_risk_score, transaction_amount_input, transaction_frequency_input):
-    # === 1. BAYESIAN INFERENCE ===
-
     # Prior probabilities
     P_fraud = 0.05  # 5% chance of fraud
     P_not_fraud = 1 - P_fraud
@@ -69,12 +67,8 @@ def calculate_risk_score(initial_risk_score, transaction_amount_input, transacti
         fuzzy_risk_score = round(risk_simulation.output['risk_score'] / 100, 3)
     else:
         fuzzy_risk_score = 0
-
-    # === 3. COMBINING FUZZY AND BAYESIAN RISK SCORES ===
-
     # Weighted combination of initial, fuzzy, and Bayesian risk scores
     final_risk_score = round((0.5 * initial_risk_score) + (0.3 * fuzzy_risk_score) + (0.2 * P_fraud_given_evidence), 3)
-
     # Print results
     print(f"Initial Risk Score: {initial_risk_score}")
     print(f"Transaction Amount: {transaction_amount_input}")

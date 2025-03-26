@@ -27,7 +27,6 @@ def get_cik_by_name(company_name):
         best_match, score = process.extractOne(company_name, companies.keys())
 
         if score > 80:  # Only return if match confidence is high
-            # print(f"✅ Best match for '{company_name}': {best_match} (CIK: {companies[best_match]})")
             return best_match, companies[best_match]
         else:
             return None
@@ -38,16 +37,7 @@ def get_cik_by_name(company_name):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
-
-# Example Usage
-# company_name = "google"
-# result = get_cik_by_name(company_name)
-
-# if result:
-#     print(f"\n✅ CIK for '{company_name}': {result[1]}")
-# else:
-#     print("Unexpected error")
-
+    
 def get_sector(cik):
     cik = str(cik).zfill(10)  # Ensure CIK is 10 digits
     url = f"https://data.sec.gov/submissions/CIK{cik}.json"

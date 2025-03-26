@@ -161,11 +161,11 @@ With increasing financial fraud, money laundering, and sanction evasions, organi
 ---
 ## 👥 Team
 
-- **Archit Lall** - [GitHub](#) | [LinkedIn](#)  
-- **Atharva A. Muglikar** - [GitHub](#) | [LinkedIn](#)  
-- **Kaushal Baid** - [GitHub](#) | [LinkedIn](#)  
-- **Rajat Rajoria** - [GitHub](#) | [LinkedIn](#)  
-- **Ritabrata Das** - [GitHub](#) | [LinkedIn](#)  
+- **Archit Lall**
+- **Atharva A. Muglikar**
+- **Kaushal Baid**
+- **Rajat Rajoria**
+- **Ritabrata Das**
 ---
 
 ## 🚀 Future Enhancements

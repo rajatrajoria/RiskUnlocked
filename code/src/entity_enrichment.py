@@ -20,5 +20,5 @@ def map_iso3166_country(country_code):
 
     if response.status_code == 200:
         gleif_data = response.json().get("data", [])
-        return gleif_data if gleif_data else country_code
-    return country_code
+        return gleif_data if gleif_data else {}
+    return {}

@@ -1,7 +1,10 @@
-transformers
-json
-torch
-os
-scipy
-bs4
-requests
+beautifulsoup4==4.11.1
+fuzzywuzzy==0.18.0
+pandas==2.0.3
+protobuf==5.27
+python-dotenv==1.1.0
+Requests==2.32.3
+scipy==1.15.2
+streamlit==1.44.0
+torch==2.6.0
+transformers==4.50.0

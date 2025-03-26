@@ -1,175 +1,171 @@
-🚀 RiskyGPT - AI-Powered Financial Risk Assessment
-📌 Table of Contents
-Introduction
+# 🚀 RiskyGPT - AI-Powered Financial Risk Assessment
 
-Demo
+## Table of Contents
+- [Introduction](#introduction)
+- [Demo](#demo)
+- [Inspiration](#inspiration)
+- [What It Does](#what-it-does)
+- [How We Built It](#how-we-built-it)
+- [Challenges We Faced](#challenges-we-faced)
+- [How to Run](#how-to-run)
+- [Tech Stack](#tech-stack)
+- [APIs & Data Sources](#apis--data-sources)
+- [Team](#team)
 
-Inspiration
+---
 
-What It Does
+## 🎯 Introduction
 
-How We Built It
-
-Challenges We Faced
-
-How to Run
-
-Tech Stack
-
-APIs & Data Sources
-
-Installation Guide
-
-Team
-
-🎯 Introduction
 RiskyGPT is an AI-powered risk assessment tool that evaluates financial transactions based on sanctions lists, geopolitical risk, and sentiment analysis from news sources. It helps financial analysts, auditors, and compliance teams detect high-risk entities and suspicious transactions.
 
-🎥 Demo
-🔗 Live Demo (if applicable)
-📹 Video Demo (if applicable)
-🖼️ Screenshots:
+---
 
+## 🎥 Demo
 
+- **Live Demo:** (if applicable)
+- **Screenshots:**  
+---
 
-💡 Inspiration
+## 💡 Inspiration
+
 With increasing financial fraud, money laundering, and sanction evasions, organizations need an AI-powered risk assessment system that automates entity verification, transaction monitoring, and risk classification using LLMs, news sentiment analysis, and global sanction lists.
 
-⚙️ What It Does
-🔍 Risk Score Calculation - Analyzes entities and transactions for sanction violations and geopolitical risk.
+---
 
-📰 News Sentiment Analysis - Uses Google News API + FinBERT to detect negative press coverage.
+## ⚙️ What It Does
 
-⚖️ Sanctions & Compliance - Cross-checks entities with OFAC, UN, FATF, EU, OpenSanctions API.
+- **🔍 Risk Score Calculation:**  
+  Analyzes entities and transactions for sanction violations and geopolitical risk.
 
-🤖 AI Chatbot - Interactive risk assessment chatbot using Ollama (Mistral-7B) + Gemini LLM.
+- **📰 News Sentiment Analysis:**  
+  Uses Google News API and FinBERT to detect negative press coverage.
 
-🔎 Entity Recognition - Extracts company details using NER-based classification.
+- **⚖️ Sanctions & Compliance:**  
+  Cross-checks entities with OFAC, UN, FATF, EU, and OpenSanctions API.
 
-🛠️ How We Built It
-🔹 Backend: Python for API development
-🔹 Frontend: Streamlit UI for real-time risk analysis
-🔹 AI Models: Mistral-7B (via Ollama), Gemini LLM, ProsusAI/FinBERT
-🔹 Data Processing: FAISS for similarity search, Named Entity Recognition (NER)
-🔹 APIs Used: OpenSanctions, Google News API, SEC EDGAR, Offshore Trust API
+- **🤖 AI Chatbot:**  
+  Provides an interactive risk assessment chatbot using Ollama (Mistral-7B) and Gemini LLM.
 
-🚧 Challenges We Faced
-⚠️ Large Model Latency: Mistral-7B required optimizations for faster inference.
+- **🔎 Entity Recognition:**  
+  Extracts company details using NER-based classification.
 
-📄 Data Processing Complexity: Handling unstructured news and entity recognition required NER-based classifiers.
+---
 
-🌐 API Limitations: Google News API rate limits required caching strategies.
+## 🛠️ How We Built It
 
-🔧 Deployment Issues: Streamlit + Ollama setup needed proper environment configurations.
+- **Backend:** Python for API development  
+- **Frontend:** Streamlit UI for real-time risk analysis  
+- **AI Models:**  
+  - Mistral-7B (via Ollama)  
+  - Gemini LLM  
+  - ProsusAI/FinBERT  
+- **Data Processing:**  
+  - FAISS for similarity search  
+  - Named Entity Recognition (NER)  
+- **APIs Used:**  
+  - OpenSanctions  
+  - Google News API  
+  - SEC EDGAR  
+  - Offshore Trust API
 
-🏃 How to Run
-1️⃣ Install Dependencies
-sh
-Copy
-Edit
-pip install -r requirements.txt
-2️⃣ Install Ollama (For Local LLM Model)
-Download and install Ollama:
+---
 
-sh
-Copy
-Edit
-curl -fsSL https://ollama.ai/install.sh | sh
-Verify installation:
+## 🚧 Challenges We Faced
 
-sh
-Copy
-Edit
-ollama list
-3️⃣ Download and Setup Models
-sh
-Copy
-Edit
-ollama pull mistral
-4️⃣ Run the Streamlit UI
-sh
-Copy
-Edit
-streamlit run bot.py
-5️⃣ Expected Output
-✅ RiskyGPT UI Loads
-✅ Transaction Analysis & Risk Scoring
-✅ Interactive Chatbot for Risk Queries
+- **Large Model Latency:**  
+  Mistral-7B required optimizations for faster inference.
 
-🏗️ Tech Stack
-Frontend: Streamlit
+- **Data Processing Complexity:**  
+  Handling unstructured news and entity recognition required NER-based classifiers.
 
-Backend: Python
+- **API Limitations:**  
+  Google News API rate limits required caching strategies.
 
-LLMs: Mistral-7B via Ollama, Gemini LLM
+- **Deployment Issues:**  
+  Streamlit + Ollama setup needed proper environment configurations.
 
-News Sentiment Analysis: ProsusAI/FinBERT
+---
 
-Entity Recognition: NER-based Classification
+## 🔧 How to Run
 
-APIs & Data Sources: Google News API, OpenSanctions, SEC EDGAR, Offshore Trust API
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/riskygpt.git
+   cd riskygpt
+2. **Install Dependencies**  
+   ```bash
+   pip install -r requirements.txt
+3. **Install Ollama (For Local LLM Model)**  
+   - **Download and Install Ollama:**  
+     ```bash
+     curl -fsSL https://ollama.ai/install.sh | sh
+     ```
+   - **Verify Installation:**  
+     ```bash
+     ollama list
+     ```
+   - **Download and Setup Models:**  
+     ```bash
+     ollama pull mistral
+     ```
 
-🌍 APIs & Data Sources
-🌐 Sanctions & Compliance:
+4. **Run the Streamlit UI**  
+   ```bash
+   streamlit run bot.py
+   ```
 
-OFAC (Office of Foreign Assets Control)
+5. **Expected Output**  
+   - ✅ RiskyGPT UI Loads  
+   - ✅ Transaction Analysis & Risk Scoring  
+   - ✅ Interactive Chatbot for Risk Queries  
 
-EU & UN Security Council Sanctions
+---
 
-FATF (Financial Action Task Force) AML Risk Lists
+## 🛠️ Tech Stack
 
-OpenSanctions API
+- **Frontend:** Streamlit  
+- **Backend:** Python  
+- **LLMs:**  
+  - Mistral-7B via Ollama  
+  - Gemini LLM  
+- **News Sentiment Analysis:** ProsusAI/FinBERT  
+- **Entity Recognition:** NER-based Classification  
 
-📊 Financial Data & Verification:
+---
 
-GLEIF (Global Legal Entity Identifier Foundation)
+## 🌍 APIs & Data Sources
 
-SEC EDGAR (U.S. Financial Filings)
+### Sanctions & Compliance
+- OFAC (Office of Foreign Assets Control)  
+- EU & UN Security Council Sanctions  
+- FATF (Financial Action Task Force) AML Risk Lists  
+- OpenSanctions API  
 
-Offshore Trust API (Shell company detection)
+### Financial Data & Verification
+- GLEIF (Global Legal Entity Identifier Foundation for PEP detection)  
+- SEC EDGAR (U.S. Financial Filings)  
+- Offshore Trust API (Shell company detection)  
 
-📰 News Sentiment Analysis:
+### News Sentiment Analysis
+- Google News API (Real-time news tracking)  
+- ProsusAI/FinBERT (Finance-focused sentiment classification)  
 
-Google News API (Real-time news tracking)
+### Risk Scoring Parameters
+- CPI (Corruption Perceptions Index)  
+- GTI (Global Terrorism Index)  
+- AML Risk Assessment Models  
 
-ProsusAI/FinBERT (Finance-focused sentiment classification)
+---
+## 👥 Team
 
-📈 Risk Scoring Parameters:
+- **Archit Lall** - [GitHub](#) | [LinkedIn](#)  
+- **Atharva A. Muglikar** - [GitHub](#) | [LinkedIn](#)  
+- **Kaushal Baid** - [GitHub](#) | [LinkedIn](#)  
+- **Rajat Rajoria** - [GitHub](#) | [LinkedIn](#)  
+- **Ritabrata Das** - [GitHub](#) | [LinkedIn](#)  
+---
 
-CPI (Corruption Perceptions Index)
+## 🚀 Future Enhancements
 
-GTI (Global Terrorism Index)
-
-AML Risk Assessment Models
-
-🔧 Installation Guide
-1️⃣ Clone the Repository
-sh
-Copy
-Edit
-git clone https://github.com/your-repo.git
-cd your-repo
-2️⃣ Install Python Dependencies
-sh
-Copy
-Edit
-pip install -r requirements.txt
-3️⃣ Install Ollama & Download Mistral Model
-sh
-Copy
-Edit
-curl -fsSL https://ollama.ai/install.sh | sh
-ollama pull mistral
-4️⃣ Run the Application
-sh
-Copy
-Edit
-streamlit run bot.py
-👥 Team
-Archit Lall - GitHub | LinkedIn
-
-Teammate 2 - GitHub | LinkedIn
-
-🚀 Future Enhancements
-✅ Integrate GPT-4 Turbo for better chatbot interaction
-✅ Deploy on cloud infrastructure (AWS/GCP)
+- ✅ Integrate GPT-4 Turbo for better chatbot interaction  
+- ✅ Deploy on cloud infrastructure (AWS/GCP)  

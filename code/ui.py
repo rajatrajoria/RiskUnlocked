@@ -3,11 +3,11 @@ import json
 import ollama
 import os
 
-# Paths
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-data_file = os.path.join(root_dir, "datasets", "result.json")  # JSON file storing risk analysis
 
-# Load risk data from JSON with error handling
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+data_file = os.path.join(root_dir, "datasets", "result.json")  
+
+
 def load_risk_data():
     try:
         if not os.path.exists(data_file):
@@ -17,7 +17,7 @@ def load_risk_data():
     except (FileNotFoundError, json.JSONDecodeError):
         return {"error": "Please enter input transaction data."}
 
-# Extract context from JSON safely
+
 def extract_risk_context(risk_data):
     if "error" in risk_data:
         return risk_data["error"]
@@ -34,7 +34,7 @@ def extract_risk_context(risk_data):
             )
     return context if context else "Please enter input transaction data."
 
-# Generate chatbot response with exception handling
+
 def get_chatbot_response(user_input, risk_context):
     if risk_context == "Please enter input transaction data.":
         return risk_context  # Prevents empty response issues
@@ -48,14 +48,14 @@ def get_chatbot_response(user_input, risk_context):
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Load risk data
+
 risk_data = load_risk_data()
 risk_context = extract_risk_context(risk_data)
 
-# Streamlit UI Layout
+
 st.set_page_config(page_title="RiskyGPT", layout="wide")
 
-# Custom Styling
+
 st.markdown(
     """
     <style>
@@ -70,14 +70,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Header
+
 st.markdown("<h1>🔍 RiskyGPT</h1>", unsafe_allow_html=True)
 st.markdown("#### Enter a transaction record (JSON or plain text)")
 
-# User input for transactions
+
 transaction_input = st.text_area("Paste transaction data here", height=150)
 
-# Analyze Transaction Button
 if st.button("Analyze Transaction 🚀"):
     if transaction_input.strip() == "":
         st.error("Please enter a transaction record.")
@@ -89,39 +88,39 @@ if st.button("Analyze Transaction 🚀"):
             except json.JSONDecodeError:
                 transaction_text = transaction_input 
 
-            # Mock risk analysis
-            risk_score = 0.7  # Example score
+       
+            risk_score = 0.7  
             justification = "This transaction is flagged due to potential links with a high-risk entity in the sanctions database."
 
-            st.markdown("<h2>🛑 Risk Analysis Result</h2>", unsafe_allow_html=True)
+            st.markdown("<h2>Risk Analysis Result</h2>", unsafe_allow_html=True)
             st.markdown(
                 f"""
                 <div class="chat-container">
                     <p><b>⚠ Risk Score:</b> {risk_score}</p>
-                    <p><b>📜 Justification:</b> {justification}</p>
+                    <p><b>Justification:</b> {justification}</p>
                 </div>
                 """,
                 unsafe_allow_html=True
             )
 
-# Chatbot UI (Right Floating Chatbox)
+
 st.sidebar.markdown("<h2>💬 RiskyGPT Chatbot</h2>", unsafe_allow_html=True)
 
-# Store chat history
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Display previous messages
+
 for chat in st.session_state.chat_history:
     if chat["role"] == "user":
         st.sidebar.markdown(f"👤 **User:** {chat['content']}")
     else:
         st.sidebar.markdown(f"🤖 **RiskyGPT:** {chat['content']}")
 
-# User input for chat
+
 chat_input = st.sidebar.text_input("Ask me anything about the risk analysis:")
 
-# Handle chat input
+
 if st.sidebar.button("Send"):
     if chat_input.strip() == "":
         st.sidebar.error("Please enter a message.")
@@ -129,9 +128,9 @@ if st.sidebar.button("Send"):
         with st.spinner("Thinking..."):
             bot_response = get_chatbot_response(chat_input, risk_context)
             
-            # Store conversation history
+          
             st.session_state.chat_history.append({"role": "user", "content": chat_input})
             st.session_state.chat_history.append({"role": "assistant", "content": bot_response})
 
-            # Refresh chat properly
-            st.rerun()  # ✅ **Fixed: Proper rerun function**
+           
+            st.rerun()  

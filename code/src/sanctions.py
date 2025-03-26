@@ -77,39 +77,48 @@ def risk_analysis_huggingface(ofac_response, open_sanctions_response):
     try:
         # Reduce JSON size
         summarized_data = summarize_sanctions_data(ofac_response, open_sanctions_response)
-
         prompt = f"""You are a risk analysis expert specializing in identifying potential financial, legal, and security risks based on sanctions data that I will be providing you. You will carefully analyze the following raw JSON response, which contains details about various entities from multiple sources (OFAC and OpenSanctions). Your task is to determine whether the entities involved are risky and, if so, provide a well-reasoned justification with supporting evidences. You be like an Explainable AI.
-A possbile response format can be something like:
-Sanction Analysis:
+        A possbile response format can be something like:
+        Sanction Analysis:
 
-Entity Name
-- Risk Score: (0-1)?
-- Justification and Evidence: (should include List of sanctioning bodies and any other details available, Reason for sanctions such as Terrorism, money laundering, fraud, etc., and any Additional insights like alias details, past violations, associated organizations, if any)
+        Entity Name
+        * Risk Score: (0-1)?
+        * Justification and Evidence: (should include List of sanctioning bodies and any other details available, Reason for sanctions such as Terrorism, money laundering, fraud, etc., and any Additional insights like alias details, past violations, associated organizations, if any)
 
-... (if more entities involved, use the same format)
+        ... (if more entities involved, use the same format)
 
-Overall Risk Score (Sanction based) for the transaction:
-- Final Risk Level: (in 0-1)
-- Confidence Level: (in 0-1;  how much confidence do you have on the Final Risk Level)
-- Justification: Justify everything, be as much detailed as possible, consideration of all individual entity risk levels, explanation of why this transaction should be flagged or cleared, Any patterns or red flags in the provided data, or anything. Think out of the box and think like an expert
+        Overall Risk Score (Sanction based) for the transaction:
+        * Final Risk Level: (in 0-1)
+        * Confidence Level: (in 0-1;  how much confidence do you have on the Final Risk Level)
+        * Justification: Justify everything, be as much detailed as possible, consideration of all individual entity risk levels, explanation of why this transaction should be flagged or cleared, Any patterns or red flags in the provided data, or anything. Think out of the box and think like an expert
 
-Here is the JSON output from the sanctions screening:
-{summarized_data}
-"""
-
+        Here is the JSON output from the sanctions screening:
+        {summarized_data}\n### Analysis:
+        """
+        
         headers = {
             "Authorization": f"Bearer {HF_API_KEY}",
             "Content-Type": "application/json"
         }
         payload = {
             "inputs": prompt,
-            "parameters": {"max_length": 30000, "temperature": 0.5}  # Smaller input
+            "parameters": {"max_length": 2048, "temperature": 0.5},
+            "options": {
+                "return_full_text": False  # Only return the generated output
+            }
         }
 
         response = requests.post(HF_API_URL, headers=headers, json=payload)
 
+        print(response)
+
         if response.status_code == 200:
-            return response.json()[0]["generated_text"]
+            generated_text = response.json()[0]["generated_text"]
+            # Attempt to remove anything before the separator:
+            if "### Analysis:" in generated_text:
+                return generated_text.split("### Analysis:")[-1].strip()
+            else:
+                return generated_text.strip()
         else:
             return f"Error: {response.status_code} - {response.text}"
     
@@ -123,7 +132,7 @@ def getSanctionReports(cases):
 
 if __name__ == "__main__":
     cases = [
-        {"name": "Austenship Management Private Ltd", "type": "organization"},
-        {"name": "Flux Maritime", "type": "organization"}
+        {"name": "Microsoft", "type": "organization"},
+        {"name": "Tesla", "type": "organization"}
     ]
     print(getSanctionReports(cases))

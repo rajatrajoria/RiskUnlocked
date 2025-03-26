@@ -1,0 +1,117 @@
+{
+  "transaction_risk_analysis": {
+    "entities": [
+      {
+        "name": "Acme Corporation",
+        "risk_score": 0.7,
+        "justification_and_evidence": {
+          "sanctioning_body": "Swiss State Secretariat for Economic Affairs (SECO)",
+          "reason_for_sanctions": "Front company for Bank Melli, used to channel money from the United States to Iran.",
+          "additional_insights": {
+            "alias": "Assa Corporation",
+            "location": "650 (or 500) Fifth Avenue, New York, United States",
+            "tax_id": "1368932 (United States)",
+            "last_updated": "2016",
+            "verification_needed": "Confirm if entity is still active and connection to Bank Melli remains."
+          }
+        }
+      },
+      {
+        "name": "SovCo Capital Partners",
+        "risk_score": 1.0,
+        "justification_and_evidence": {
+          "sanctioning_bodies": [
+            "OFAC (Office of Foreign Assets Control)",
+            "US Department of Commerce",
+            "Other references (us_trade_csl, us_sam_exclusions)"
+          ],
+          "reason_for_sanctions": "Presence on multiple sanctions lists indicates serious violations (e.g., trade restrictions, export controls, procurement debarment).",
+          "additional_insights": {
+            "origin": "Russia",
+            "aliases": "Multiple variations in Cyrillic and Latin script",
+            "active_status": true,
+            "website": "https://orbitacapital.com/",
+            "potential_cover_activity": "Legitimate business structure may be used to mask illicit operations.",
+            "linked_entities": {
+              "entity": "Fund 'Digital Evolution Venture Fund'",
+              "concern": "Potential dual-use technology transfer or sanctions evasion."
+            }
+          }
+        }
+      },
+      {
+        "name": "IDG Capital Partners Co., Ltd.",
+        "associated_with": "SovCo Capital Partners",
+        "risk_score": 0.8,
+        "justification_and_evidence": {
+          "sanctioning_body": "US Department of Defense",
+          "reason_for_sanctions": "Identified as a Chinese Military-Linked Company, raising national security concerns.",
+          "additional_insights": {
+            "connection_to_SovCo": "Financial or operational ties suggest collaboration or potential sanctions evasion."
+          }
+        }
+      }
+    ],
+    "overall_risk_assessment": {
+      "final_risk_level": 0.9,
+      "confidence_level": 0.9,
+      "justification": "High-risk transaction due to links to sanctioned entities, including a potential sanctions evasion network."
+    },
+    "red_flags_and_patterns": {
+      "layered_structures_and_aliases": "Multiple aliases and front companies obscure true ownership.",
+      "geographic_nexus": "Entities based in Russia and China present heightened geopolitical risk.",
+      "potential_dual_use_technology_involvement": "SovCo's investment activities may facilitate technology transfer with military applications."
+    },
+    "recommendation": "Flag transaction and conduct thorough due diligence, including verification of Acme Corporation's current status and SovCo's ties to IDG Capital Partners."
+  },
+
+  "implementation_details": {
+    "technology_stack": {
+      "backend": "Python (FastAPI) for API development",
+      "frontend": "Streamlit UI for real-time risk analysis",
+      "LLM_pipeline": "Gemini + Ollama (Mistral-7B) for contextual chatbot & analysis",
+      "vector_search": "FAISS for entity name similarity search",
+      "news_sentiment_analysis": "Google News API + ProsusAI/FinBERT for sentiment classification",
+      "entity_recognition": "NER-based classification & extraction using classifier NER"
+    },
+    "data_sources": {
+      "sanctions_lists": [
+        "OFAC (Office of Foreign Assets Control)",
+        "UN Security Council Sanctions List",
+        "EU Sanctions List",
+        "Swiss SECO Sanctions List",
+        "OpenSanctions API (for consolidated global sanctions data)"
+      ],
+      "financial_records": [
+        "SEC EDGAR (For U.S.-based companies' financial reports)",
+        "GLEIF (For legal entity verification)",
+        "Offshore Trust API (For identifying shell companies and offshore structures)"
+      ],
+      "risk_scoring_indexes": {
+        "CPI": "Corruption Perceptions Index (Transparency International)",
+        "FATF": "Financial Action Task Force (AML/CFT risk assessment)",
+        "GTI": "Global Terrorism Index (Terror financing risk assessment)",
+        "AML": "Anti-Money Laundering risk assessment based on multiple global standards"
+      },
+      "news_and_sentiments": [
+        "Google News API (For real-time news monitoring & entity-based sentiment tracking)",
+        "ProsusAI/FinBERT (For finance-specific sentiment classification using BERT)"
+      ]
+    },
+    "risk_scoring_parameters": {
+      "factors_considered": [
+        "Presence on sanctions lists",
+        "Ownership & shell company detection",
+        "Geopolitical risk (Country-based weightage)",
+        "Negative news sentiment & legal cases",
+        "Terror financing & AML compliance (GTI, FATF, CPI indexes)"
+      ],
+      "calculation_logic": "Weighted scoring based on factors, aggregated for final risk score.",
+      "thresholds": {
+        "high_risk": "Above 0.65",
+        "medium_risk": "Between 0.4 and 0.65",
+        "low_risk": "Below 0.4"
+      }
+    }
+  }
+}

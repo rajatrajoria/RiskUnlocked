@@ -6,6 +6,7 @@ from risk_scoring import is_pep
 from transformers import pipeline
 
 def process_transaction(transaction):
+    print("Inside process_transaction")
     if isinstance(transaction, dict):
         txn_id = transaction.get("Transaction ID", "Unknown")
         sender = transaction.get("Payer Name") or transaction.get("Sender Name")
@@ -24,7 +25,7 @@ def process_transaction(transaction):
         receiver = receiver_match.group(1) if receiver_match else None
     
     # --- Run NER on the unstructured text ---
-    ner = pipeline("ner", model="dslim/bert-base-NER", grouped_entities=True)
+    ner = pipeline("ner", model="dslim/bert-base-NER", aggregation_strategy="simple")
     ner_unstructured = ner(raw_text)
     unstructured_entities = merge_entities(ner_unstructured)
 

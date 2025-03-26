@@ -5,7 +5,8 @@ from process_transaction import process_transaction
 from news_fetch import get_news_with_full_content
 from news_sentiment_analysis import news_sentiment_analysis_score
 from geo_risk_analysis import geo_risk_analysis
-from sector import getSectors
+from Sector import getSectors
+from sanctions import getSanctionReports
 
 def process():
     sample_transaction = {
@@ -36,11 +37,18 @@ def process():
     
     extraction_result["Sectors associated with the entities extracted"] = getSectors(extraction_result["Extracted Entity"])
 
+    # Prepare sanction cases list from extracted entities
+    sanction_cases = []
+    for name, ent_type in zip(extraction_result["Extracted Entity"], extraction_result["Entity Type"]):
+        # Convert type to the expected value for sanctions screening
+        if ent_type.lower() in ["individual", "pep"]:
+            type_value = "person"
+        else:
+            type_value = "organization"
+        sanction_cases.append({"name": name, "type": type_value})
 
-    #Kaushal will be changing here
-    extraction_result["Sanction Analysis of the entitites involved"] = getSanctionReports()
-
-
+    # Now pass the list to getSanctionReports()
+    extraction_result["Sanction Analysis of the entitites involved"] = getSanctionReports(sanction_cases)
     print(json.dumps(extraction_result, indent=2))
 
 

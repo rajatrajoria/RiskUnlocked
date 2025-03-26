@@ -4,7 +4,7 @@ import requests
 
 load_dotenv()
 
-OPENSANCTIONS_API_KEY = os.getenv("OPENSANCTIONS_KEY")
+OPENSANCTIONS_API_KEY = os.getenv("OPENSANCTIONS_API_KEY")
 
 def is_pep(name):
     """Use OpenSanctions API to check if a person is a Politically Exposed Person (PEP)"""

@@ -1,4 +1,4 @@
-# 🚀 RiskyGPT - AI-Powered Financial Risk Assessment
+# 🚀 RiskUnlocked - AI-Powered Entity Risk Scoring & Compliance Detection by team c4p$_UnL0ck3D
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -16,7 +16,7 @@
 
 ## 🎯 Introduction
 
-RiskyGPT is an AI-powered risk assessment tool that evaluates financial transactions based on sanctions lists, geopolitical risk, and sentiment analysis from news sources. It helps financial analysts, auditors, and compliance teams detect high-risk entities and suspicious transactions.
+RiskUnlocked is an AI-powered risk assessment tool that evaluates financial transactions based on sanctions lists, geopolitical risk, and sentiment analysis from news sources. It helps financial analysts, auditors, and compliance teams detect high-risk entities and suspicious transactions.
 
 ---
 

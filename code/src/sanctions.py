@@ -26,7 +26,7 @@ def screen_entities_ofac(cases):
     }
     headers = {"Content-Type": "application/json"}
     try:
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.post(OFAC_API_URL, json=payload, headers=headers)
         if response.status_code == 200:
             result = response.json()
             return result
@@ -104,8 +104,8 @@ Here is the JSON output from the sanctions screening:
 def getSanctionReports(cases):
     screening_result_from_ofac = screen_entities_ofac(cases)
     screening_result_from_openSanctionsAPI = screen_entities_openSanctionsAPI(cases)
-    response = risk_analysis_llm(screening_result_from_ofac, screening_result_from_openSanctionsAPI)
-    return response
+    # response = risk_analysis_llm(screening_result_from_ofac, screening_result_from_openSanctionsAPI)
+    # return response
   
 
 

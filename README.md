@@ -1,17 +1,18 @@
 # 🚀 RiskUnlocked - AI-Powered Entity Risk Scoring & Compliance Detection by team c4p$_UnL0ck3D
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Demo](#demo)
-- [Inspiration](#inspiration)
-- [What It Does](#what-it-does)
-- [How We Built It](#how-we-built-it)
-- [Challenges We Faced](#challenges-we-faced)
-- [How to Run](#how-to-run)
-- [Tech Stack](#tech-stack)
-- [APIs & Data Sources](#apis--data-sources)
-- [Team](#team)
-
+- [Introduction](#-introduction)
+- [Demo](#-demo)
+- [Inspiration](#-inspiration)
+- [What It Does](#-what-it-does)
+- [How We Built It](#-how-we-built-it)
+- [Challenges We Faced](#-challenges-we-faced)
+- [How to Run](#-how-to-run)
+- [Tech Stack](#-tech-stack)
+- [APIs & Data Sources](#-apis--data-sources)
+- [Team](#-team)
+- [Future Enhancements](#-future-enhacements)
+  
 ---
 
 ## 🎯 Introduction

@@ -5,7 +5,7 @@ import os
 import torch
 
 from main import app 
-# from voice import text_to_speech
+from voice import text_to_speech
 torch.classes.__path__ = []
 
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..",".."))
@@ -118,11 +118,11 @@ if st.button("Analyze Transaction 🚀"):
             st.markdown("**Justification:**")
             st.markdown(f"```\n{justification_str}\n```")
 
-# if st.button("Read out loud"):
-#     if justification_str != "":
-#         text_to_speech(justification_str)
-#     else:
-#          st.error("Get an output first")
+if st.button("Read out loud"):
+    if justification_str != "":
+        text_to_speech(justification_str)
+    else:
+         st.error("Get an output first")
 
 
 # Chatbot UI (Right Floating Chatbox)
